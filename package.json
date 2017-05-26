@@ -1,0 +1,22 @@
+{
+  "name": "tron2tron",
+  "version": "0.0.0",
+  "description": "Peer-to-peer multiplayer lightcycle race",
+  "main": "t2t.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tron",
+    "lightcycle",
+    "p2p",
+    "peer-to-peer",
+    "game",
+    "multiplayer"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "blessed": "^0.1.81"
+  }
+}
