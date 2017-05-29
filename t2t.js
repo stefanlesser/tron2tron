@@ -1,6 +1,6 @@
 const blessed = require('blessed')
 
-// Game lovic
+// Game logic
 class TronEvent {
     constructor(x, y, player, direction) {
         this.x = x
@@ -21,8 +21,8 @@ class TronEvent {
 
 function firstRound() {
     return [
-        new TronEvent( 10, 10, 0, { dx:  1, dy: 0 }),
-        new TronEvent(100, 40, 1, { dx: -1, dy: 0 })
+        new TronEvent(10, 10, 0, { dx:  1, dy: 0 }),
+        new TronEvent(80, 20, 1, { dx: -1, dy: 0 })
     ]
 }
 
@@ -83,9 +83,27 @@ const height = grid.height
 
 var tronState = [firstRound()]
 
+// initialize render grid
+var renderGrid = Array(height - 2)
+for (i = 0; i < renderGrid.length; i++) {
+    renderGrid[i] = Array(width - 2).fill(" ")
+}
+
 setInterval(function () {
     tronState.push(nextRound(tronState))
-    grid.content = `Round ${tronState.length}`
+
+    // traverse game state and set "pixels" in render grid
+    for (round of tronState) {
+        for (event of round) {
+            renderGrid[event.y][event.x] = event.player
+        }
+    }
+
+    // transform render grid into row strings delimited by newlines
+    grid.content = renderGrid
+        .map(row => row.join(""))
+        .join("\n")
+
     screen.render()
 }, tickInterval)
 
